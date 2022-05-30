@@ -9,5 +9,9 @@
 </h1>
 <br/>
 <a href="hello-servlet">Hello Servlet</a>
+<br/>
+<a href="notes-servlet">Notes Servlet</a>
+<br/>
+<a href="timer-servlet">Timer Servlet</a>
 </body>
 </html>
