@@ -25,11 +25,8 @@ public class NoteServlet extends HttpServlet {
     private final static Logger LOGGER = Logger.getLogger(NoteServlet.class.getName());
 
 
-    @Resource(name="java:comp/DefaultManagedExecutorService")
+    @Resource(name = "java:comp/DefaultManagedExecutorService")
     ManagedExecutorService mExecService;
-
-    @Resource(name="java:comp/DefaultManagedScheduledExecutorService")
-    ManagedScheduledExecutorService sExecService;
 
 
     public void init() {
@@ -41,22 +38,19 @@ public class NoteServlet extends HttpServlet {
         response.setContentType("text/html");
         int numUpdates = -1;
         // Hello
-        Notes note = new Notes("Test Note", true);
-        //mExecService.submit(new InsertNotesTask(note));
-        Future<Integer> future = mExecService.submit(
-                new InsertNotesTask(note));
-        try {
-            numUpdates = future.get(1000, TimeUnit.MILLISECONDS);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (TimeoutException e) {
-            e.printStackTrace();
-        }
-
         PrintWriter out = response.getWriter();
         out.println("<html><body>");
+        Notes note = new Notes("Test Note", true);
+        //mExecService.submit(new InsertNotesTask(note));
+        try {
+
+            Future<Integer> future = mExecService.submit(
+                    new InsertNotesTask(note));
+            numUpdates = future.get(1000, TimeUnit.MILLISECONDS);
+        } catch (Exception ex) {
+            out.println("<h5>" + ex.getMessage() + "</h5>");
+        }
+
         out.println("<h1>Notes Servlet</h1>");
         out.println("<h2>" + numUpdates + "</h2>");
         out.println("</body></html>");

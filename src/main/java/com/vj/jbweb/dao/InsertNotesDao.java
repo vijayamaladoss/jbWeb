@@ -1,8 +1,6 @@
 package com.vj.jbweb.dao;
 
 import com.vj.jbweb.model.Notes;
-import com.vj.jbweb.service.DBVersionService;
-import com.vj.jbweb.util.ServiceLocator;
 
 import java.sql.*;
 import java.util.logging.Level;
